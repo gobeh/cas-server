@@ -1,153 +1,311 @@
-<!DOCTYPE html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SSO ITB</title>
 
-    <title>Login Form Fragment</title>
-    <link href="../../static/css/cas.css" rel="stylesheet" th:remove="tag" />
+
+    <!-- <link rel="stylesheet" href="/cas/css/cas.css" /> -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!-- <link href='https://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700' rel='stylesheet' type='text/css'> -->
+    <!-- <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'> -->
+    <link rel="stylesheet" href="../../static/css/font-awesome.min.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <style>
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus,
+        input:-webkit-autofill:active,
+        #username {
+            background: none !important;
+        }
+    </style>
+
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.1/html5shiv.js" type="text/javascript"></script>
+    <![endif]-->
 </head>
+<!-- <body id="cas">
+  <div class="container">
+  	
+  <div class="col-lg-4 col-lg-push-8">
+      <div class="main">
+      <header>
+	  <div id="logo">
+         <h1>Central Authentication ITB</h1>
+	  </div>
+      </header>
+      <div id="content"> -->
+
 <body>
-<main role="main" class="container mt-3 mb-3">
-    <div class="row">
-        <div class="col-md">
-            <!-- Login form template begins here -->
-            <div th:fragment="loginform" class="card">
-                <div class="card-header text-center">
-                    <h2 th:text="#{cas.login.pagetitle}">Login</h2>
-                    <span class="fa-stack fa-2x hidden-xs">
-                      <i class="fa fa-circle fa-stack-2x"></i>
-                      <i class="fa fa-lock fa-stack-1x fa-inverse"></i>
-                    </span>
+<!-- begin:: Page -->
+<main role="main">
+    <div th:fragment="loginform" class="m-grid m-grid--hor m-grid--root m-page">
+        <div class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-grid--tablet-and-mobile m-grid--hor-tablet-and-mobile m-login m-login--1 m-login--signin"
+             id="m_login">
+            <div class="m-grid__item m-grid__item--fluid m-grid m-grid--center m-grid--hor m-grid__item--order-tablet-and-mobile-1  m-login__content"
+                 style="background-image: url(images/background-b.png);background-position:left bottom;">
+                <div class="m-grid__item m-grid__item--middle">
+                    <ol style="color: #fff;">
+                        <li>
+                            <h4>Layanan Login ITB</h4>
+                            <p>Layanan Login ITB merupakan aplikasi berbasis SSO (Single Sign On) yang memungkinkan
+                                civitas akademika ITB untuk mengakses beberapa aplikasi pendukung kegiatan ITB dengan
+                                menggunakan satu akun saja yaitu akun INA (ITB Network Account).</p>
+                        </li>
+                        <li>
+                            <h4>Daftar Akun</h4>
+                            <p>untuk menggunakan Login ITB, anda harus memiliki akun INA terlebih dahulu. Akun INA dapat
+                                dimiliki oleh:
+                            </p>
+                            <ul>
+                                <li>Mahasiswa</li>
+                                <li>Staf/Dosen yang memiliki NIP</li>
+                                <li>Staf/Dosen/Peneliti yang tidak memiliki NIP</li>
+                                <li>Tamu</li>
+                            </ul>
+                            <a href=" https://ditsti.itb.ac.id/registrasi-akun-ina/" target="_blank"
+                               style="color: #fc0;">Kunjungi https://ditsti.itb.ac.id/registrasi-akun-ina/ untuk
+                                mengetahui cara registrasi akun INA.</a>
+                            <p></p>
+                        </li>
+                        <p></p>
+
+                        <li><h4>Lupa Password</h4>
+                            <p>Jika lupa password, <a href="https://nic.itb.ac.id/manajemen-akun/reset-password"
+                                                      target="_blank" style="color: #fc0;">silahkan klik link
+                                berikut</a>.</p>
+                        </li>
+                        <li><h4>Peringatan Keamanan</h4>
+                            <p>Demi keamanan, mohon selalu logout dari login.itb.ac.id dan mematikan browser jika telah
+                                selesai mengakses layanan internet ITB.</p>
+                        </li>
+                    </ol>
+                    <!-- <h3 class="m-login__welcome">
+                      Join Our Community
+                    </h3>
+                    <p class="m-login__msg">
+                      Lorem ipsum dolor sit amet, coectetuer adipiscing
+                      <br>
+                      elit sed diam nonummy et nibh euismod
+                    </p> -->
                 </div>
-                <div class="card-body">
-                    <form method="post" id="fm1" th:object="${credential}" action="login">
-                        <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
-                            <span th:each="err : ${#fields.errors('*')}" th:utext="${err}">Example error</span>
-                        </div>
+            </div>
+            <div class="m-grid__item m-grid__item--order-tablet-and-mobile-2 m-login__aside">
+                <div class="m-stack m-stack--hor m-stack--desktop">
+                    <div class="m-stack__item m-stack__item--fluid">
+                        <div class="m-login__wrapper">
 
-                        <h3 th:utext="#{screen.welcome.instructions}">Enter your Username and Password</h3>
-
-                        <section class="form-group">
-                            <label for="username" th:utext="#{screen.welcome.label.netid}">Username</label>
-
-                            <div th:if="${openIdLocalId}">
-                                <strong>
-                                    <span th:utext="${openIdLocalId}"/>
-                                </strong>
-                                <input type="hidden"
-                                       id="username"
-                                       name="username"
-                                       th:value="${openIdLocalId}"/>
+                            <div class="m-login__logo">
+                                <a href="#">
+                                    <img src="images\logo.png">
+                                </a>
                             </div>
-                            <div th:unless="${openIdLocalId}">
-                                <input class="form-control required"
-                                       id="username"
-                                       size="25"
-                                       tabindex="1"
-                                       type="text"
-                                       th:disabled="${guaEnabled}"
-                                       th:field="*{username}"
-                                       th:accesskey="#{screen.welcome.label.netid.accesskey}"
-                                       autocomplete="off"/>
-                            </div>
-                        </section>
 
-                        <section class="form-group">
-                            <label for="password" th:utext="#{screen.welcome.label.password}">Password</label>
+                            <div class="m-login__signin">
+                                <!-- <div class="m-login__head">
+                                  <h3 class="m-login__title">
+                                    Enter your Username and Password
+                                  </h3>
+                                </div> -->
 
-                            <div>
-                                <input class="form-control required"
-                                       type="password"
-                                       id="password"
-                                       size="25"
-                                       tabindex="2"
-                                       th:accesskey="#{screen.welcome.label.password.accesskey}"
-                                       th:field="*{password}"
-                                       autocomplete="off"/>
-                                <span id="capslock-on" style="display:none;">
+
+                                <div class="box" id="login">
+                                    <form id="fm1" th:object="${credential}" action="login" method="post">
+                                        <div class="alert alert-danger" th:if="${#fields.hasErrors('*')}">
+                                            <span th:each="err : ${#fields.errors('*')}"
+                                                  th:utext="${err}">Example error</span>
+                                        </div>
+
+
+                                        <div class="m-login__head">
+                                            <h3 class="m-login__title">
+                                                <!-- Enter your Username and Password -->
+                                                Sign in
+                                            </h3>
+                                        </div>
+
+                                        <div class="form-group">
+
+                                            <div th:if="${openIdLocalId}">
+                                                <strong>
+                                                    <span th:utext="${openIdLocalId}"/>
+                                                </strong>
+                                                <input type="hidden"
+                                                       id="username"
+                                                       name="username"
+                                                       th:value="${openIdLocalId}"
+                                                       placeholder="Username"/>
+                                            </div>
+                                            <div th:unless="${openIdLocalId}">
+                                                <input class="form-control required"
+                                                       id="username"
+                                                       size="25"
+                                                       tabindex="1"
+                                                       type="text"
+                                                       th:disabled="${guaEnabled}"
+                                                       th:field="*{username}"
+                                                       th:accesskey="#{screen.welcome.label.netid.accesskey}"
+                                                       autocomplete="off"
+                                                       placeholder="Username"/>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div>
+                                                <input class="form-control required"
+                                                       type="password"
+                                                       id="password"
+                                                       size="25"
+                                                       tabindex="2"
+                                                       th:accesskey="#{screen.welcome.label.password.accesskey}"
+                                                       th:field="*{password}"
+                                                       autocomplete="off"
+                                                       placeholder="Password"/>
+                                                <span id="capslock-on" style="display:none;">
                                 <p>
                                     <i class="fa fa-exclamation-circle"></i>
                                     <span th:utext="#{screen.capslock.on}"/>
                                 </p>
                             </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-check"
+                                             th:if="${passwordManagementEnabled && param.doChangePassword != null}">
+                                            <p>
+                                                <input type="checkbox" name="doChangePassword" id="doChangePassword"
+                                                       value="true" th:checked="${param.doChangePassword != null}"
+                                                       tabindex="4"/>
+                                                <label for="doChangePassword" th:text="#{screen.button.changePassword}">Change
+                                                    Password</label>
+                                            </p>
+                                        </div>
+                                        <div class="form-check" th:if="${rememberMeAuthenticationEnabled}">
+                                            <p>
+                                                <input type="checkbox" name="rememberMe" id="rememberMe" value="true"
+                                                       tabindex="5"/>
+                                                <label for="rememberMe" th:text="#{screen.rememberme.checkbox.title}">Remember
+                                                    Me</label>
+                                            </p>
+                                        </div>
+
+                                        <div class="row"
+                                             th:if="${recaptchaSiteKey != null AND recaptchaInvisible != null AND recaptchaSiteKey != null AND !recaptchaInvisible}">
+                                            <div class="g-recaptcha" th:attr="data-sitekey=${recaptchaSiteKey}"/>
+                                        </div>
+                                        <!-- <div class="col m--align-left">
+
+                                          <label for="warn"><span class="accesskey">W</span>arn me before logging me into other sites.</label>
+                                        </div> -->
+
+                                        <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
+                                        <input type="hidden" name="_eventId" value="submit"/>
+                                        <input type="hidden" name="geolocation"/>
+
+                                        <div class="m-login__form-action">
+                                            <input class="btn btn-primary btn-block"
+                                                   th:unless="${recaptchaSiteKey != null AND recaptchaInvisible != null AND recaptchaSiteKey != null AND recaptchaInvisible}"
+                                                   name="submit"
+                                                   accesskey="l"
+                                                   th:value="#{screen.welcome.button.login}"
+                                                   tabindex="6"
+                                                   type="submit"
+                                                   value="Login3"
+                                            />
+                                        </div>
+                                    </form>
+                                    <form th:if="${passwordManagementEnabled}" method="post"
+                                          id="passwordManagementForm">
+                                        <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
+                                        <input type="hidden" name="_eventId" value="resetPassword"/>
+                                        <span class="fa fa-unlock"></span>
+                                        <a th:utext="#{screen.pm.button.resetPassword}" href="javascript:void(0)"
+                                           onclick="$('#passwordManagementForm').submit();"/>
+                                        <p/>
+                                    </form>
+
+                                    <div th:unless="${passwordManagementEnabled}" class="col m--align-left">
+                                        <span class="fa fa-question-circle"></span>
+                                        <span th:utext="#{screen.pm.button.forgotpwd}">Forgot your password?</span>
+                                        <p/>
+                                    </div>
+
+                                    <script type="text/javascript" th:inline="javascript">
+                                        var i = [[#{screen.welcome.button.loginwip}]]
+                                        $(document).ready(function () {
+                                            $("#fm1").submit(function () {
+                                                $(":submit").attr("disabled", true);
+                                                $(":submit").attr("value", i);
+                                                console.log(i);
+                                                return true;
+                                            });
+                                        });
+                                    </script>
+                                </div>
+
                             </div>
-                        </section>
-
-                        <section class="form-check" th:if="${passwordManagementEnabled && param.doChangePassword != null}">
-                            <p>
-                                <input type="checkbox" name="doChangePassword" id="doChangePassword"
-                                       value="true" th:checked="${param.doChangePassword != null}" tabindex="4"/>
-                                <label for="doChangePassword" th:text="#{screen.button.changePassword}">Change Password</label>
-                            </p>
-                        </section>
-
-                        <section class="form-check" th:if="${rememberMeAuthenticationEnabled}">
-                            <p>
-                                <input type="checkbox" name="rememberMe" id="rememberMe" value="true" tabindex="5"/>
-                                <label for="rememberMe" th:text="#{screen.rememberme.checkbox.title}">Remember Me</label>
-                            </p>
-                        </section>
-
-                        <section class="row" th:if="${recaptchaSiteKey != null AND recaptchaInvisible != null AND recaptchaSiteKey != null AND !recaptchaInvisible}">
-                            <div class="g-recaptcha" th:attr="data-sitekey=${recaptchaSiteKey}"/>
-                        </section>
-
-                        <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
-                        <input type="hidden" name="_eventId" value="submit"/>
-                        <input type="hidden" name="geolocation"/>
-                        <input class="btn btn-block btn-submit"
-                               th:unless="${recaptchaSiteKey != null AND recaptchaInvisible != null AND recaptchaSiteKey != null AND recaptchaInvisible}"
-                               name="submit"
-                               accesskey="l"
-                               th:value="#{screen.welcome.button.login}"
-                               tabindex="6"
-                               type="submit"
-                               value="Login3"
-                        />
-                        <button class="btn btn-block btn-submit g-recaptcha"
-                                th:if="${recaptchaSiteKey != null AND recaptchaInvisible != null AND recaptchaSiteKey != null AND recaptchaInvisible}"
-                                th:attr="data-sitekey=${recaptchaSiteKey}, data-badge=${recaptchaPosition}"
-                                data-callback="onSubmit"
-                                name="submitBtn"
-                                accesskey="l"
-                                th:text="#{screen.welcome.button.login}"
-                                tabindex="6"
-                        />
-                    </form>
-
-                    <form th:if="${passwordManagementEnabled}" method="post" id="passwordManagementForm">
-                        <input type="hidden" name="execution" th:value="${flowExecutionKey}"/>
-                        <input type="hidden" name="_eventId" value="resetPassword"/>
-                        <span class="fa fa-unlock"></span>
-                        <a th:utext="#{screen.pm.button.resetPassword}" href="javascript:void(0)" onclick="$('#passwordManagementForm').submit();"/>
-                        <p/>
-                    </form>
-
-                    <div th:unless="${passwordManagementEnabled}">
-                        <span class="fa fa-question-circle"></span>
-                        <span th:utext="#{screen.pm.button.forgotpwd}">Forgot your password?</span>
-                        <p/>
+                        </div>
                     </div>
-
-                    <script type="text/javascript" th:inline="javascript">
-                        var i = [[#{screen.welcome.button.loginwip}]]
-                        $( document ).ready(function() {
-                            $("#fm1").submit(function () {
-                                $(":submit").attr("disabled", true);
-                                $(":submit").attr("value", i);
-                                console.log(i);
-                                return true;
-                            });
-                        });
-                    </script>
-
-                    <div th:replace="fragments/loginsidebar :: loginsidebar" />
                 </div>
             </div>
+
         </div>
-    </div>
+
+
+        <!-- </div>
+        </div>
+        </div>
+        <div class="col-lg-8 col-lg-pull-4 tright">
+
+        <ol>
+          <li>
+            <h4>Layanan Login ITB</h4>
+            <p>Layanan Login ITB merupakan aplikasi berbasis SSO (Single Sign On) yang memungkinkan civitas akademika ITB untuk mengakses beberapa aplikasi pendukung kegiatan ITB dengan menggunakan satu akun saja yaitu akun INA (ITB Network Account).</p>
+          </li>
+          <li>
+            <h4>Daftar Akun</h4>
+            <p>Untuk menggunakan Login ITB, anda harus memiliki akun INA terlebih dahulu. Akun INA dapat dimiliki oleh:
+              <ul>
+                <li>Mahasiswa</li>
+                <li>Staf/Dosen yang memiliki NIP</li>
+                <li>Staf/Dosen/Peneliti yang tidak memiliki NIP</li>
+                <li>Tamu</li>
+              </ul>
+              <a href=" http://ditsti.itb.ac.id/registrasi-akun-ina/" target="_blank">Kunjungi http://ditsti.itb.ac.id/registrasi-akun-ina/ untuk mengetahui cara registrasi akun INA.</a>
+            </p>
+          </li>
+
+          <li>
+            <h4>Peringatan Kemanan</h4>
+            <p>Demi keamanan, mohon selalu logout dari login.itb.ac.id dan mematikan browser jika telah selesai mengakses layanan internet ITB.</p> -->
+        <!--<p>Untuk logout dari login.itb.ac.id, <a href="https://login.itb.ac.id/cas/logout" target="_blank">silahkan klik link berikut</a>.</p>-->
+        <!-- </li>
+      </ol>
+  
+  </div>
+
+      <footer>
+        <div id="copyright" class="col-lg-12">
+          © Copyright 2016 Institut Teknologi Bandung</p>
+        </div>
+      </footer> -->
+
+    </div> <!-- END #container -->
+
+    <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
+    <!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script> -->
+
+
+    <!-- <script type="text/javascript" src="https://github.com/cowboy/javascript-debug/raw/master/ba-debug.min.js"></script> -->
+
+    <!--  -->
+    <!-- <script type="text/javascript" src="/cas/js/cas.js"></script> -->
+    <!-- <script type="text/javascript" src="/cas/js/vendors.bundle.js"></script>
+    <script type="text/javascript" src="/cas/js/scripts.bundle.js"></script> -->
 </main>
 </body>
 </html>
+
+
